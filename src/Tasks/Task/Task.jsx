@@ -1,19 +1,17 @@
+import { FaTimes } from 'react-icons/fa';
 import styles from './Task.module.css'
 
-const tasks = [{
-    id: 1,
-    text: 'Get Up',
-    time: '8:00'
-},]
-
-const Task = (props) => {
+const Task = ({ taskList, onToggle, deleteTask }) => {
 
     return (
-        tasks.map((task) => (
-            <div key={task.id} className={styles.task} onDoubleClick={() => {
-                
+        taskList.map((task) => (
+            <div key={task.id} className={task.remind ? `${styles.task} ${styles.reminder}` : `${styles.task}`} onDoubleClick={() => {
+                onToggle(task.id)
             }}> 
-                <h3>{task.text}</h3>
+                <h3>{task.text} <FaTimes onClick={() => {
+                    deleteTask(task.id)
+                }}/> </h3>
+                <p>{task.day}</p>
             </div>
         ))
     )
